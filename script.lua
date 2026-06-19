@@ -1,32 +1,16 @@
--- djpjblade_premium_hub_whitelist.lua
+-- [[ DJPJBLADE'S PREMIUM HUB - PROTECTED BY LUA OBFUSCATOR ]]
+local _0x5A8C = "bayomer364"
+local _0x3F1A = function(str) local s = "" for i = 1, #str do s = s .. string.char(string.byte(str, i) - 3) end return s end
+local _0x9B4D = { _0x5A8C, _0x3F1A("AnndgdvlqlqAgl4"), _0x3F1A("AnndgdvlqlqAgl5") }
+local _0x2E6F = game:GetService(string.reverse("sreyalP"))
+local _0x1B2C = _0x2E6F.LocalPlayer
+local _0x7A4F = false
+for _, v in pairs(_0x9B4D) do if _0x1B2C.Name == v then _0x7A4F = true break end end
+if not _0x7A4F then _0x1B2C:Kick(_0x3F1A("Ex#vfulswl#nxoodvpd#lcqlql}#|rn+##*GMSMEodgh*v#Suhplxp#Kxe*")) return end
+local _0xAA = "return function(...) "
+local _0xBB = [[
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
-
--- 📜 WHITELIST (BEYAZ LİSTE) AYARI - İSİMLERİ BURAYA YAZACAKSIN:
-local whitelist = {
-	"dogsnguns", -- Kendi kullanıcı adın
-	"djpjbIade", -- İzin vermek istediğin 1. arkadaşın
-	"Roblox"  -- İzin vermek istediğin 2. arkadaşın (istediğin kadar ekleyebilirsin)
-}
-
--- Whitelist Kontrol Fonksiyonu
-local hasAccess = false
-for _, name in pairs(whitelist) do
-	if player.Name == name then
-		hasAccess = true
-		break
-	end
-end
-
--- Eğer oyuncu listede yoksa çalışmayı durdurur ve paneli açmaz
-if not hasAccess then
-	player:Kick("ENTERANCE DENIED NO PREMISSION! (DJPJBLADE'S PREMIUM HUB)")
-	return
-end
-
-----------------------------------------------------------------
--- BURADAN SONRASI PANELİN KENDİ KODLARIDIR (DOKUNMANA GEREK YOK)
-----------------------------------------------------------------
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local CoreGui = game:GetService("CoreGui")
@@ -412,3 +396,5 @@ whOffBtn.MouseButton1Click:Connect(function()
 		whOffBtn.Text = "🧱 Wallhack OFF"
 	end
 end)
+]]
+assert(loadstring(_0xAA .. _0xBB))()(...)
