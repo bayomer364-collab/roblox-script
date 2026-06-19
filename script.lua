@@ -1,4 +1,4 @@
--- premium_admin_menu_v14.lua
+-- djpjblade_premium_hub.lua
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -27,21 +27,21 @@ local espFolder = nil
 local function getEspFolder()
 	if not espFolder or not espFolder.Parent then
 		espFolder = Instance.new("Folder")
-		espFolder.Name = "PremiumAdmin_ESP"
+		espFolder.Name = "DjpjbladeHub_ESP"
 		espFolder.Parent = CoreGui
 	end
 	return espFolder
 end
 
 ----------------------------------------------------------------
--- 1. PREMIUM UI TASARIMI
+-- 1. PREMIUM UI TASARIMI (DJPJBLADE'S PREMIUM HUB)
 ----------------------------------------------------------------
 
-local oldGui = player:WaitForChild("PlayerGui"):FindFirstChild("PremiumAdminGui")
+local oldGui = player:WaitForChild("PlayerGui"):FindFirstChild("DjpjbladePremiumHubGui")
 if oldGui then oldGui:Destroy() end
 
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "PremiumAdminGui"
+screenGui.Name = "DjpjbladePremiumHubGui"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = player:WaitForChild("PlayerGui")
 
@@ -63,10 +63,10 @@ mainCorner.Parent = mainFrame
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Size = UDim2.new(1, 0, 0, 45)
 titleLabel.BackgroundTransparency = 1
-titleLabel.Text = "✨ PREMIUM ADMIN PANEL"
+titleLabel.Text = "✨ DJPJBLADE'S PREMIUM HUB"
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 titleLabel.Font = Enum.Font.GothamBold
-titleLabel.TextSize = 14
+titleLabel.TextSize = 13 -- Uzun ismin sığması için yazı boyutu hafif dengelendi
 titleLabel.TextXAlignment = Enum.TextXAlignment.Center
 titleLabel.Parent = mainFrame
 
@@ -286,7 +286,7 @@ godModeOffBtn.MouseButton1Click:Connect(function()
 end)
 
 ----------------------------------------------------------------
--- GÜNCELLENEN ÖZELLİKLER: GLOWING ESP & SAFE WALLHACK (NOCLIP)
+-- ÖZELLİKLER: GLOWING ESP & SAFE WALLHACK (NOCLIP)
 ----------------------------------------------------------------
 
 -- 7) RED GLOWING PLAYER ESP ON (İSİM + STUD)
@@ -296,7 +296,6 @@ espOnBtn.MouseButton1Click:Connect(function()
 	local folder = getEspFolder()
 	
 	espConnection = RunService.RenderStepped:Connect(function()
-		-- Sadece metin içeren Billboard'ları temizle, Chams'leri elle yönet
 		folder:ClearAllChildren()
 		
 		for _, p in pairs(Players:GetPlayers()) do
@@ -306,20 +305,20 @@ espOnBtn.MouseButton1Click:Connect(function()
 				local hum = char:FindFirstChildOfClass("Humanoid")
 				
 				if hum and hum.Health > 0 then
-					-- 1. Kırmızı Glowing Efekti (Highlight)
-					local hl = char:FindFirstChild("PremiumEspGlow")
+					-- Kırmızı Glowing Efekti (Highlight)
+					local hl = char:FindFirstChild("DjpjbladeEspGlow")
 					if not hl then
 						hl = Instance.new("Highlight")
-						hl.Name = "PremiumEspGlow"
+						hl.Name = "DjpjbladeEspGlow"
 						hl.FillColor = Color3.fromRGB(255, 0, 0)
 						hl.FillTransparency = 0.6
-						hl.OutlineColor = Color3.fromRGB(255, 0, 0) -- Kırmızı Parlama Hatları
+						hl.OutlineColor = Color3.fromRGB(255, 0, 0)
 						hl.OutlineTransparency = 0
 						hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 						hl.Parent = char
 					end
 					
-					-- 2. İsim ve Stud Metni
+					-- İsim ve Stud Metni
 					local pos, onScreen = camera:WorldToViewportPoint(rpart.Position)
 					if onScreen then
 						local billboard = Instance.new("BillboardGui")
@@ -333,21 +332,19 @@ espOnBtn.MouseButton1Click:Connect(function()
 						label.Size = UDim2.new(1, 0, 1, 0)
 						label.BackgroundTransparency = 1
 						
-						-- Mesafe Hesaplama (Stud Cinsinden)
 						local myRoot = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
 						local distance = myRoot and math.floor((myRoot.Position - rpart.Position).Magnitude) or 0
 						
 						label.Text = string.format("%s\n[%d Studs]", p.Name, distance)
-						label.TextColor3 = Color3.fromRGB(255, 50, 50) -- Kırmızı yazı
+						label.TextColor3 = Color3.fromRGB(255, 50, 50)
 						label.Font = Enum.Font.GothamBold
 						label.TextSize = 12
-						label.TextStrokeTransparency = 0 -- Siyah gölgelendirme
+						label.TextStrokeTransparency = 0
 						label.Parent = billboard
 					end
 				else
-					-- Ölen oyuncunun efektini sil
-					if char:FindFirstChild("PremiumEspGlow") then
-						char.PremiumEspGlow:Destroy()
+					if char:FindFirstChild("DjpjbladeEspGlow") then
+						char.DjpjbladeEspGlow:Destroy()
 					end
 				end
 			end
@@ -370,10 +367,9 @@ espOffBtn.MouseButton1Click:Connect(function()
 		if espFolder then
 			espFolder:ClearAllChildren()
 		end
-		-- Tüm haritadaki kırmızı parlamaları temizle
 		for _, p in pairs(Players:GetPlayers()) do
-			if p.Character and p.Character:FindFirstChild("PremiumEspGlow") then
-				p.Character.PremiumEspGlow:Destroy()
+			if p.Character and p.Character:FindFirstChild("DjpjbladeEspGlow") then
+				p.Character.DjpjbladeEspGlow:Destroy()
 			end
 		end
 		espOffBtn.Text = "🚫 ESP Disabled!"
@@ -382,7 +378,7 @@ espOffBtn.MouseButton1Click:Connect(function()
 	end
 end)
 
--- 9) WALLHACK (NOCLIP) ON - VOID GLITCH'SİZ GÜVENLİ DUVAR GEÇİŞİ
+-- 9) WALLHACK (NOCLIP) ON
 whOnBtn.MouseButton1Click:Connect(function()
 	if isNoclipActive then return end
 	isNoclipActive = true
@@ -392,8 +388,6 @@ whOnBtn.MouseButton1Click:Connect(function()
 		if character and isNoclipActive then
 			for _, part in pairs(character:GetDescendants()) do
 				if part:IsA("BasePart") then
-					-- Karakterin sadece dik uzuvlarının çarpışmasını kapatıyoruz (Duvarlar için)
-					-- Yerin dibine (Voide) düşmemek için HumanoidRootPart ve alt parçaların dikey bloklanmasını koruyoruz
 					if part.Name ~= "HumanoidRootPart" and part.Name ~= "LowerTorso" then
 						part.CanCollide = false
 					end
@@ -416,7 +410,6 @@ whOffBtn.MouseButton1Click:Connect(function()
 			noclipConnection = nil
 		end
 		
-		-- Karakterin çarpışma mekaniğini orijinal haline döndür
 		local character = player.Character
 		if character then
 			for _, part in pairs(character:GetDescendants()) do
