@@ -1,13 +1,36 @@
--- [[ DJPJBLADE'S PREMIUM HUB - PROTECTED BY LUA OBFUSCATOR ]]
-local _0x5A8C = "dogsnguns"
-local _0x3F1A = function(str) local s = "" for i = 1, #str do s = s .. string.char(string.byte(str, i) - 3) end return s end
-local _0x9B4D = { _0x5A8C, _0x3F1A("gmsme|odgh"), _0x3F1A("Ureor{") }
-local _0x2E6F = game:GetService(string.reverse("sreyalP"))
-local _0x1B2C = _0x2E6F.LocalPlayer
-local _0x7A4F = false
-for _, v in pairs(_0x9B4D) do if _0x1B2C.Name == v then _0x7A4F = true break end end
-if not _0x7A4F then _0x1B2C:Kick(_0x3F1A("\x59\x4F\x55\x20\x48\x41\x56\x45\x20\x4E\x4F\x20\x50\x52\x45\x4D\x49\x53\x53\x49\x4F\x4E\x20\x54\x4F\x20\x55\x53\x45\x20\x54\x48\x49\x53\x20\x53\x43\x52\x49\x54\x50\x21\x20\x28\x44\x4A\x50\x4A\x42\x4C\x41\x44\x45\x27\x53\x20\x50\x52\x45\x4D\x49\x55\x4D\x20\x48\x55\x42\x29")) return end
-local _0xAA = "return function(...) "
+-- [[ DJPJBLADE'S PREMIUM HUB - BYPASS PROOF PROTECTION ]]
+local _0xP = game:GetService("Players")
+local _0xL = _0xP.LocalPlayer
+
+-- Karakter kod çözücü fonksiyon
+local function _0xG(t)
+	local s = ""
+	for i = 1, #t do s = s .. string.char(t[i]) end
+	return s
+end
+
+-- Tamamen gizlenmiş whitelist isimleri: "dogsnguns", "djpjbIade", "Roblox"
+local _0xW = {
+	_0xG({100, 111, 103, 115, 110, 103, 117, 110, 115}),
+	_0xG({100, 106, 112, 106, 98, 73, 97, 100, 101}),
+	_0xG({82, 111, 98, 108, 111, 120})
+}
+
+local _0xA = false
+for _, v in pairs(_0xW) do
+	if _0xL.Name == v then
+		_0xA = true
+		break
+	end
+end
+
+-- Eğer whitelistte yoksan atılacak kick mesajı da sayısal olarak gizlendi
+if not _0xA then
+	_0xL:Kick(_0xG({89, 79, 85, 32, 72, 65, 86, 69, 32, 78, 79, 32, 80, 82, 69, 77, 73, 83, 83, 73, 79, 78, 32, 84, 79, 32, 85, 83, 69, 32, 84, 72, 73, 83, 32, 83, 67, 82, 73, 80, 84, 33, 32, 40, 68, 74, 80, 74, 66, 76, 65, 68, 69, 39, 83, 32, 80, 82, 65, 77, 73, 85, 77, 32, 72, 85, 66, 41}))
+	return
+end
+
+-- Panel Kod Bloğu
 local _0xBB = [[
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -397,4 +420,5 @@ whOffBtn.MouseButton1Click:Connect(function()
 	end
 end)
 ]]
-assert(loadstring(_0xAA .. _0xBB))()(...)
+
+assert(loadstring(_0xBB))()()
