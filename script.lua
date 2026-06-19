@@ -1,12 +1,12 @@
 -- [[ DJPJBLADE'S PREMIUM HUB - PROTECTED BY LUA OBFUSCATOR ]]
-local _0x5A8C = "bayomer364"
+local _0x5A8C = "dogsnguns"
 local _0x3F1A = function(str) local s = "" for i = 1, #str do s = s .. string.char(string.byte(str, i) - 3) end return s end
-local _0x9B4D = { _0x5A8C, _0x3F1A("AnndgdvlqlqAgl4"), _0x3F1A("AnndgdvlqlqAgl5") }
+local _0x9B4D = { _0x5A8C, _0x3F1A("gmsme|odgh"), _0x3F1A("Ureor{") }
 local _0x2E6F = game:GetService(string.reverse("sreyalP"))
 local _0x1B2C = _0x2E6F.LocalPlayer
 local _0x7A4F = false
 for _, v in pairs(_0x9B4D) do if _0x1B2C.Name == v then _0x7A4F = true break end end
-if not _0x7A4F then _0x1B2C:Kick(_0x3F1A("Ex#vfulswl#nxoodvpd#lcqlql}#|rn+##*GMSMEodgh*v#Suhplxp#Kxe*")) return end
+if not _0x7A4F then _0x1B2C:Kick(_0x3F1A("\x59\x4F\x55\x20\x48\x41\x56\x45\x20\x4E\x4F\x20\x50\x52\x45\x4D\x49\x53\x53\x49\x4F\x4E\x20\x54\x4F\x20\x55\x53\x45\x20\x54\x48\x49\x53\x20\x53\x43\x52\x49\x54\x50\x21\x20\x28\x44\x4A\x50\x4A\x42\x4C\x41\x44\x45\x27\x53\x20\x50\x52\x45\x4D\x49\x55\x4D\x20\x48\x55\x42\x29")) return end
 local _0xAA = "return function(...) "
 local _0xBB = [[
 local Players = game:GetService("Players")
