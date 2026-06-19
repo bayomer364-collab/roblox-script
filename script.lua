@@ -1,29 +1,49 @@
--- djpjblade_premium_hub.lua
+-- djpjblade_premium_hub_whitelist.lua
 local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- 📜 WHITELIST (BEYAZ LİSTE) AYARI - İSİMLERİ BURAYA YAZACAKSIN:
+local whitelist = {
+	"dogsnguns", -- Kendi kullanıcı adın
+	"djpjbIade", -- İzin vermek istediğin 1. arkadaşın
+	"Roblox"  -- İzin vermek istediğin 2. arkadaşın (istediğin kadar ekleyebilirsin)
+}
+
+-- Whitelist Kontrol Fonksiyonu
+local hasAccess = false
+for _, name in pairs(whitelist) do
+	if player.Name == name then
+		hasAccess = true
+		break
+	end
+end
+
+-- Eğer oyuncu listede yoksa çalışmayı durdurur ve paneli açmaz
+if not hasAccess then
+	player:Kick("ENTERANCE DENIED NO PREMISSION! (DJPJBLADE'S PREMIUM HUB)")
+	return
+end
+
+----------------------------------------------------------------
+-- BURADAN SONRASI PANELİN KENDİ KODLARIDIR (DOKUNMANA GEREK YOK)
+----------------------------------------------------------------
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local CoreGui = game:GetService("CoreGui")
-local player = Players.LocalPlayer
 local camera = workspace.CurrentCamera
 
--- Modül Değişkenleri
 local currentWormhole = nil
 local wormholePosition = nil
 local isMinimized = false
-
--- God Mode Hafızası
 local isGodModeActive = false
 local voidConnection = nil
 local originalMaxHealth = 100
-
--- ESP & Wallhack (Noclip) Hafızası
 local isEspActive = false
 local isNoclipActive = false
 local espConnection = nil
 local noclipConnection = nil
 local espFolder = nil
 
--- ESP Klasör Kontrolü
 local function getEspFolder()
 	if not espFolder or not espFolder.Parent then
 		espFolder = Instance.new("Folder")
@@ -32,10 +52,6 @@ local function getEspFolder()
 	end
 	return espFolder
 end
-
-----------------------------------------------------------------
--- 1. PREMIUM UI TASARIMI (DJPJBLADE'S PREMIUM HUB)
-----------------------------------------------------------------
 
 local oldGui = player:WaitForChild("PlayerGui"):FindFirstChild("DjpjbladePremiumHubGui")
 if oldGui then oldGui:Destroy() end
@@ -66,7 +82,7 @@ titleLabel.BackgroundTransparency = 1
 titleLabel.Text = "✨ DJPJBLADE'S PREMIUM HUB"
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 titleLabel.Font = Enum.Font.GothamBold
-titleLabel.TextSize = 13 -- Uzun ismin sığması için yazı boyutu hafif dengelendi
+titleLabel.TextSize = 13
 titleLabel.TextXAlignment = Enum.TextXAlignment.Center
 titleLabel.Parent = mainFrame
 
@@ -92,9 +108,6 @@ buttonContainer.Position = UDim2.new(0, 0, 0, 50)
 buttonContainer.BackgroundTransparency = 1
 buttonContainer.Parent = mainFrame
 
-----------------------------------------------------------------
--- PREMIUM BUTON OLUŞTURMA FONKSİYONU
-----------------------------------------------------------------
 local function createPremiumButton(name, text, color, posX, posY)
 	local button = Instance.new("TextButton")
 	button.Name = name
@@ -123,25 +136,16 @@ local function createPremiumButton(name, text, color, posX, posY)
 	return button
 end
 
--- Buton Yerleşimi
 local spawnButton = createPremiumButton("SpawnButton", "🌌 Spawn Wormhole", Color3.fromRGB(90, 40, 180), 15, 10)
 local teleportButton = createPremiumButton("TeleportButton", "🌀 Teleport", Color3.fromRGB(20, 120, 180), 180, 10)
-
 local speedUpButton = createPremiumButton("SpeedUpButton", "⚡ Speed +15", Color3.fromRGB(210, 140, 20), 15, 65)
 local normalSpeedButton = createPremiumButton("NormalSpeedButton", "🚶 Normal Speed", Color3.fromRGB(90, 100, 110), 180, 65)
-
 local godModeOnBtn = createPremiumButton("GodModeOnBtn", "🔱 God Mode ON", Color3.fromRGB(120, 30, 160), 15, 120)
 local godModeOffBtn = createPremiumButton("GodModeOffBtn", "☠️ God Mode OFF", Color3.fromRGB(130, 40, 50), 180, 120)
-
 local espOnBtn = createPremiumButton("EspOnBtn", "🚨 Player ESP ON", Color3.fromRGB(180, 40, 40), 15, 175)
 local espOffBtn = createPremiumButton("EspOffBtn", "🚫 Player ESP OFF", Color3.fromRGB(100, 50, 50), 180, 175)
-
 local whOnBtn = createPremiumButton("WhOnBtn", "🧱 Wallhack ON", Color3.fromRGB(40, 140, 80), 15, 230)
 local whOffBtn = createPremiumButton("WhOffBtn", "🧱 Wallhack OFF", Color3.fromRGB(50, 80, 60), 180, 230)
-
-----------------------------------------------------------------
--- KONTROL VE ETKİLEŞİM FONKSİYONLARI
-----------------------------------------------------------------
 
 minimizeButton.MouseButton1Click:Connect(function()
 	if isMinimized then
@@ -159,7 +163,6 @@ minimizeButton.MouseButton1Click:Connect(function()
 	end
 end)
 
--- 1) SPAWN WORMHOLE
 spawnButton.MouseButton1Click:Connect(function()
 	local character = player.Character
 	local rootPart = character and character:FindFirstChild("HumanoidRootPart")
@@ -194,7 +197,6 @@ spawnButton.MouseButton1Click:Connect(function()
 	end
 end)
 
--- 2) TELEPORT
 teleportButton.MouseButton1Click:Connect(function()
 	local character = player.Character
 	local rootPart = character and character:FindFirstChild("HumanoidRootPart")
@@ -211,7 +213,6 @@ teleportButton.MouseButton1Click:Connect(function()
 	end
 end)
 
--- 3) HIZLANDIRMA (+15 HIZ)
 speedUpButton.MouseButton1Click:Connect(function()
 	local character = player.Character
 	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
@@ -223,7 +224,6 @@ speedUpButton.MouseButton1Click:Connect(function()
 	end
 end)
 
--- 4) NORMAL HIZ
 normalSpeedButton.MouseButton1Click:Connect(function()
 	local character = player.Character
 	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
@@ -235,7 +235,6 @@ normalSpeedButton.MouseButton1Click:Connect(function()
 	end
 end)
 
--- 5) GOD MODE ON
 godModeOnBtn.MouseButton1Click:Connect(function()
 	local character = player.Character
 	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
@@ -264,7 +263,6 @@ godModeOnBtn.MouseButton1Click:Connect(function()
 	end
 end)
 
--- 6) GOD MODE OFF
 godModeOffBtn.MouseButton1Click:Connect(function()
 	local character = player.Character
 	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
@@ -285,11 +283,6 @@ godModeOffBtn.MouseButton1Click:Connect(function()
 	end
 end)
 
-----------------------------------------------------------------
--- ÖZELLİKLER: GLOWING ESP & SAFE WALLHACK (NOCLIP)
-----------------------------------------------------------------
-
--- 7) RED GLOWING PLAYER ESP ON (İSİM + STUD)
 espOnBtn.MouseButton1Click:Connect(function()
 	if isEspActive then return end
 	isEspActive = true
@@ -305,7 +298,6 @@ espOnBtn.MouseButton1Click:Connect(function()
 				local hum = char:FindFirstChildOfClass("Humanoid")
 				
 				if hum and hum.Health > 0 then
-					-- Kırmızı Glowing Efekti (Highlight)
 					local hl = char:FindFirstChild("DjpjbladeEspGlow")
 					if not hl then
 						hl = Instance.new("Highlight")
@@ -318,7 +310,6 @@ espOnBtn.MouseButton1Click:Connect(function()
 						hl.Parent = char
 					end
 					
-					-- İsim ve Stud Metni
 					local pos, onScreen = camera:WorldToViewportPoint(rpart.Position)
 					if onScreen then
 						local billboard = Instance.new("BillboardGui")
@@ -356,7 +347,6 @@ espOnBtn.MouseButton1Click:Connect(function()
 	espOnBtn.Text = "🚨 Player ESP ON"
 end)
 
--- 8) PLAYER ESP OFF
 espOffBtn.MouseButton1Click:Connect(function()
 	if isEspActive then
 		isEspActive = false
@@ -378,7 +368,6 @@ espOffBtn.MouseButton1Click:Connect(function()
 	end
 end)
 
--- 9) WALLHACK (NOCLIP) ON
 whOnBtn.MouseButton1Click:Connect(function()
 	if isNoclipActive then return end
 	isNoclipActive = true
@@ -401,7 +390,6 @@ whOnBtn.MouseButton1Click:Connect(function()
 	whOnBtn.Text = "🧱 Wallhack ON"
 end)
 
--- 10) WALLHACK (NOCLIP) OFF
 whOffBtn.MouseButton1Click:Connect(function()
 	if isNoclipActive then
 		isNoclipActive = false
