@@ -9,11 +9,11 @@ local function _0xG(t)
 	return s
 end
 
--- Tamamen gizlenmiş whitelist isimleri: "dogsnguns", "djpjbIade", "Roblox"
+-- Tamamen gizlenmiş whitelist isimleri: "dogsnguns", "djpjbIade", "hackertracker_67"
 local _0xW = {
 	_0xG({100, 111, 103, 115, 110, 103, 117, 110, 115}),
 	_0xG({100, 106, 112, 106, 98, 73, 97, 100, 101}),
-	_0xG({82, 111, 98, 108, 111, 120})
+	_0xG({104, 97, 99, 107, 101, 114, 116, 114, 97, 99, 107, 101, 114, 95, 54, 55})
 }
 
 local _0xA = false
@@ -24,7 +24,7 @@ for _, v in pairs(_0xW) do
 	end
 end
 
--- Eğer whitelistte yoksan atılacak kick mesajı da sayısal olarak gizlendi
+-- Eğer whitelistte yoksan atılacak kick mesajı
 if not _0xA then
 	_0xL:Kick(_0xG({89, 79, 85, 32, 72, 65, 86, 69, 32, 78, 79, 32, 80, 82, 69, 77, 73, 83, 83, 73, 79, 78, 32, 84, 79, 32, 85, 83, 69, 32, 84, 72, 73, 83, 32, 83, 67, 82, 73, 80, 84, 33, 32, 40, 68, 74, 80, 74, 66, 76, 65, 68, 69, 39, 83, 32, 80, 82, 65, 77, 73, 85, 77, 32, 72, 85, 66, 41}))
 	return
